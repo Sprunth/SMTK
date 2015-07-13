@@ -1049,8 +1049,14 @@
           </modify-argument>
           <inject-code class="target" position="beginning">
             smtk::shared_ptr&lt; smtk::common::Resource &gt; _out;
-            %CPPSELF->get(%1, _out);
-            %PYARG_0 = %CONVERTTOPYTHON[smtk::shared_ptr&lt; smtk::common::Resource &gt;](_out);
+            bool result = %CPPSELF->get(%1, _out);
+            if (result)
+              %PYARG_0 = %CONVERTTOPYTHON[smtk::shared_ptr&lt; smtk::common::Resource &gt;](_out);
+            else
+            {
+              smtk::shared_ptr&lt; smtk::common::Resource &gt; _ret;
+              %PYARG_0 = %CONVERTTOPYTHON[smtk::shared_ptr&lt; smtk::common::Resource &gt;](_ret);
+            }
           </inject-code>
         </modify-function>
       </object-type>
@@ -1815,6 +1821,15 @@
           return-type="smtk::shared_ptr&lt;smtk::attribute::System &gt;">
           <inject-code>
             %RETURN_TYPE %0 = smtk::dynamic_pointer_cast&lt;smtk::attribute::System &gt;(%1);
+            %PYARG_0 = %CONVERTTOPYTHON[%RETURN_TYPE](%0);
+          </inject-code>
+        </add-function>
+
+        <add-function signature="New()"
+          static="yes"
+          return-type="smtk::shared_ptr&lt;smtk::attribute::System &gt;">
+          <inject-code>
+            %RETURN_TYPE %0(new smtk::attribute::System());
             %PYARG_0 = %CONVERTTOPYTHON[%RETURN_TYPE](%0);
           </inject-code>
         </add-function>

@@ -1,5 +1,6 @@
 set(smtkIOPythonTests
   unitOperatorLog
+  ResourceSetTest
 )
 
 # Additional tests that require SMTK_DATA_DIR
