@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/usr/bin/python
 import sys
 #=============================================================================
@@ -12,6 +13,10 @@ import sys
 #
 #=============================================================================
 import os
+=======
+import os
+import sys
+>>>>>>> 7bad66056af273b47c3c02497674ac652403b7ff
 from pprint import pprint
 import smtk
 from smtk.simple import *

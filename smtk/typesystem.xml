@@ -1032,6 +1032,16 @@
       <object-type name="Resource">
         <include file-name="smtk/common/Resource.h" location="local" />
         <enum-type name="Type" />
+
+        <add-function signature="CastTo(smtk::shared_ptr&lt;smtk::attribute::System &gt; &amp;)"
+          static="yes"
+          return-type="smtk::shared_ptr&lt;smtk::common::Resource &gt;">
+          <inject-code>
+            %RETURN_TYPE %0 = smtk::dynamic_pointer_cast&lt;smtk::common::Resource &gt;(%1);
+            %PYARG_0 = %CONVERTTOPYTHON[%RETURN_TYPE](%0);
+          </inject-code>
+        </add-function>
+
       </object-type>
 
       <object-type name="ResourceSet">
@@ -1834,6 +1844,16 @@
           </inject-code>
         </add-function>
 
+        <add-function signature="Dereference(smtk::shared_ptr&lt;smtk::attribute::System &gt;)"
+          static="yes"
+          return-type="smtk::attribute::System">
+          <inject-code>
+            //%RETURN_TYPE %0 = *(%1);
+            %RETURN_TYPE %0;
+            %PYARG_0 = %CONVERTTOPYTHON[%RETURN_TYPE](%0);
+          </inject-code>
+        </add-function>
+
      </object-type>
 
       <object-type name="StringItem">
@@ -2044,6 +2064,10 @@
 
       <object-type name="ResourceSetReader">
         <include file-name="smtk/io/ResourceSetReader.h" location="local"/>
+      </object-type>
+
+      <object-type name="ResourceSetWriter">
+        <include file-name="smtk/io/ResourceSetWriter.h" location="local"/>
       </object-type>
 
     </namespace-type>

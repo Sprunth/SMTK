@@ -5,6 +5,7 @@ set(smtkIOPythonTests
 
 # Additional tests that require SMTK_DATA_DIR
 set(smtkIOPythonDataTests
+
 )
 
 foreach (test ${smtkIOPythonTests})
@@ -26,6 +27,19 @@ if (SMTK_DATA_DIR AND EXISTS ${SMTK_DATA_DIR}/ReadMe.mkd)
         ENVIRONMENT "PYTHONPATH=${VTKPY_DIR}${VTKPY_DIR}${SHIBOKEN_SMTK_PYTHON};${LIB_ENV_VAR}"
     )
   endforeach()
+
+  set(writer_test ResourceSetWriterTest)
+  add_test(${writer_test}Py
+    ${PYTHON_EXECUTABLE}
+    ${CMAKE_CURRENT_SOURCE_DIR}/${writer_test}.py
+    ${SMTK_DATA_DIR}/smtk/attribute/Basic2DFluid.sbt
+    ${SMTK_DATA_DIR}/smtk/attribute/copyAttributeTest.sbi
+    writer_output.crf
+  )
+  set_tests_properties(${writer_test}Py
+    PROPERTIES
+      ENVIRONMENT "PYTHONPATH=${VTKPY_DIR}${SHIBOKEN_SMTK_PYTHON};${LIB_ENV_VAR}"
+  )
 
   set(reader_test ResourceSetReaderTest)
   add_test(${reader_test}Py
